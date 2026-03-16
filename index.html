@@ -383,7 +383,7 @@
       <div class="contact-items">
         <div class="contact-item">
           <div class="contact-icon"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
-          <span>E-Mail: <a href="/cdn-cgi/l/email-protection#eb82858d84ab8a868ec68a8e989f838e9f828898c58f8e"><span class="__cf_email__" data-cfemail="0a63646c654a6b676f276b6f797e626f7e636979246e6f">[email&#160;protected]</span></a></span>
+          <span>E-Mail: <a href="mailto:info&#64;ame-aesthetics&#46;de">info&#64;ame&#45;aesthetics&#46;de</a></span>
         </div>
         <div class="contact-item">
           <div class="contact-icon"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
@@ -398,16 +398,16 @@
     <div class="booking-form">
       <div class="form-title">Termin anfragen</div>
       <div class="form-sub">Wir melden uns innerhalb von 24 Stunden bei Ihnen.</div>
-      <form id="bookingForm">
+      <form id="bookingForm" action="https://formspree.io/f/mnjggbvr" method="POST">
         <div class="form-row">
-          <div class="form-group"><label>Vorname</label><input type="text" placeholder="Maria" required></div>
-          <div class="form-group"><label>Nachname</label><input type="text" placeholder="Müller" required></div>
+          <div class="form-group"><label>Vorname</label><input type="text" name="vorname" placeholder="Maria" required></div>
+          <div class="form-group"><label>Nachname</label><input type="text" name="nachname" placeholder="Müller" required></div>
         </div>
-        <div class="form-group"><label>E-Mail-Adresse</label><input type="email" placeholder="maria@beispiel.de" required></div>
+        <div class="form-group"><label>E-Mail-Adresse</label><input type="email" name="email" placeholder="maria@beispiel.de" required></div>
         <div class="form-row">
           <div class="form-group">
             <label>Gewünschte Leistung</label>
-            <select>
+            <select name="leistung">
               <option value="">Bitte wählen …</option>
               <option>Gesichtsbehandlung</option>
               <option>Gesichtscreme</option>
@@ -417,9 +417,9 @@
               <option>Beratungsgespräch</option>
             </select>
           </div>
-          <div class="form-group"><label>Wunschdatum</label><input type="date"></div>
+          <div class="form-group"><label>Wunschdatum</label><input type="date" name="wunschdatum"></div>
         </div>
-        <div class="form-group"><label>Nachricht (optional)</label><textarea placeholder="Haben Sie besondere Wünsche oder Fragen?"></textarea></div>
+        <div class="form-group"><label>Nachricht (optional)</label><textarea name="nachricht" placeholder="Haben Sie besondere Wünsche oder Fragen?"></textarea></div>
         <button type="submit" class="form-submit">Anfrage absenden →</button>
         <p class="form-note">Ihre Daten werden vertraulich behandelt und nicht an Dritte weitergegeben.</p>
       </form>
@@ -465,24 +465,5 @@
     document.getElementById('mainNav').style.padding = window.scrollY > 60 ? '0.6rem 5rem' : '1rem 5rem';
   });
 
-  // Form — Formspree
-  document.getElementById('bookingForm').addEventListener('submit', async function(e) {
-    e.preventDefault();
-    const form = this;
-    const data = new FormData(form);
-    try {
-      const response = await fetch('https://formspree.io/f/mnjggbvr', {
-        method: 'POST',
-        body: data,
-        headers: { 'Accept': 'application/json' }
-      });
-      if (response.ok) {
-        form.style.display = 'none';
-        document.getElementById('successMsg').style.display = 'block';
-      } else {
-        alert('Es gab einen Fehler. Bitte schreiben Sie uns direkt an info@ame-aesthetics.de');
-      }
-    } catch(err) {
-      alert('Es gab einen Fehler. Bitte schreiben Sie uns direkt an info@ame-aesthetics.de');
-    }
-  });
+  // Form — wird über Formspree action direkt gesendet
+
