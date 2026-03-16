@@ -48,7 +48,7 @@
     }
     .hero-bg-img {
       position: absolute; inset: 0; z-index: 0;
-      background-image: url('logo.png');
+      background-image: url('logo-new.png');
       background-size: cover; background-position: center;
       opacity: 0.20;
     }
@@ -238,7 +238,7 @@
 <canvas id="particles"></canvas>
 
 <nav id="mainNav">
-  <a href="#" class="nav-logo"><img src="logo.png" alt="AME Aesthetics"></a>
+  <a href="#" class="nav-logo"><img src="logo-new.png" alt="AME Aesthetics"></a>
   <ul class="nav-links">
     <li><a href="#leistungen">Leistungen</a></li>
     <li><a href="#ueber-uns">Über uns</a></li>
@@ -251,7 +251,7 @@
   <div class="hero-bg-img"></div>
   <div class="hero-bg-overlay"></div>
   <div class="hero-logo">
-    <img src="logo.png" alt="AME Aesthetics">
+    <img src="logo-new.png" alt="AME Aesthetics">
   </div>
   <div class="hero-slogan">Glow together. Feel amazing.</div>
   <p class="hero-sub">Professionelle ästhetische Behandlungen von erfahrenen Ärzten — individuell, sorgfältig und mit Zeit für Sie.</p>
@@ -337,7 +337,7 @@
 <section class="section about" id="ueber-uns">
   <div class="about-inner">
     <div class="about-img-wrap">
-      <img src="logo.png" alt="AME Aesthetics">
+      <img src="logo-new.png" alt="AME Aesthetics">
       <div class="about-tag">Ärztlich durchgeführt</div>
     </div>
     <div class="about-text">
@@ -383,7 +383,7 @@
       <div class="contact-items">
         <div class="contact-item">
           <div class="contact-icon"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
-          <span>E-Mail: <a href="mailto:info@ame-aesthetics.de">info@ame-aesthetics.de</a></span>
+          <span>E-Mail: <a href="/cdn-cgi/l/email-protection#eb82858d84ab8a868ec68a8e989f838e9f828898c58f8e"><span class="__cf_email__" data-cfemail="0a63646c654a6b676f276b6f797e626f7e636979246e6f">[email&#160;protected]</span></a></span>
         </div>
         <div class="contact-item">
           <div class="contact-icon"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
@@ -398,7 +398,7 @@
     <div class="booking-form">
       <div class="form-title">Termin anfragen</div>
       <div class="form-sub">Wir melden uns innerhalb von 24 Stunden bei Ihnen.</div>
-      <form id="bookingForm">
+      <form id="bookingForm" action="https://formspree.io/f/mnjggbvr" method="POST">
         <div class="form-row">
           <div class="form-group"><label>Vorname</label><input type="text" placeholder="Maria" required></div>
           <div class="form-group"><label>Nachname</label><input type="text" placeholder="Müller" required></div>
@@ -432,12 +432,12 @@
 </section>
 
 <footer>
-  <div class="footer-logo"><img src="logo.png" alt="AME Aesthetics"></div>
+  <div class="footer-logo"><img src="logo-new.png" alt="AME Aesthetics"></div>
   <div class="footer-copy">© 2026 AME Aesthetics · Maria Sisiou & Adrienn Bereczki · Talheimer Straße 32, 74223 Flein</div>
   <div class="footer-links"><a href="#">Impressum</a><a href="#">Datenschutz</a></div>
 </footer>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
   // Particles
   const canvas = document.getElementById('particles');
   const ctx = canvas.getContext('2d');
@@ -465,12 +465,24 @@
     document.getElementById('mainNav').style.padding = window.scrollY > 60 ? '0.6rem 5rem' : '1rem 5rem';
   });
 
-  // Form
-  document.getElementById('bookingForm').addEventListener('submit', function(e) {
+  // Form — Formspree
+  document.getElementById('bookingForm').addEventListener('submit', async function(e) {
     e.preventDefault();
-    this.style.display = 'none';
-    document.getElementById('successMsg').style.display = 'block';
+    const form = this;
+    const data = new FormData(form);
+    try {
+      const response = await fetch('https://formspree.io/f/mnjggbvr', {
+        method: 'POST',
+        body: data,
+        headers: { 'Accept': 'application/json' }
+      });
+      if (response.ok) {
+        form.style.display = 'none';
+        document.getElementById('successMsg').style.display = 'block';
+      } else {
+        alert('Es gab einen Fehler. Bitte schreiben Sie uns direkt an info@ame-aesthetics.de');
+      }
+    } catch(err) {
+      alert('Es gab einen Fehler. Bitte schreiben Sie uns direkt an info@ame-aesthetics.de');
+    }
   });
-</script>
-</body>
-</html>
